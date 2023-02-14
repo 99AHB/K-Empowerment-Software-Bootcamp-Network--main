@@ -1,3 +1,4 @@
+// 연습문제 1번 commit
 class Worker extends Thread{
     public void run(){
         for(int i = 0; i<5; i++){
