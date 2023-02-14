@@ -4,6 +4,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 // IP 165.246.115.165 포트 20000
 
 public class SimpleEchoServer implements Runnable {
@@ -14,18 +16,22 @@ public class SimpleEchoServer implements Runnable {
         this.clientSocket = clientSocket;
     }
     public static void main(String[] args) {
+        ExecutorService eService = Executors.newFixedThreadPool(2); // 2 threads
         System.out.println("다중 접속 에코 서버");
         try (ServerSocket serverSocket = new ServerSocket(20000)) {
             while (true) {
                 System.out.println("클라이언트 접속 대기 중.....");
                 clientSocket = serverSocket.accept();
                 SimpleEchoServer tes = new SimpleEchoServer(clientSocket);
-                new Thread(tes).start();
+                // new Thread(tes).start();
+                eService.submit(tes);
             }
         } catch (IOException ex) {
+            System.out.println("입출력 예외 발생!");
 
         }
         System.out.println("다중 접속 에코 서버 종료");
+        eService.shutdown();
     }
 
     @Override
@@ -43,6 +49,7 @@ public class SimpleEchoServer implements Runnable {
             System.out.println(Thread.currentThread() +" 클라이언트가 종료됨"); }
         catch (IOException ex)
         {
+
         }
     }
 }
