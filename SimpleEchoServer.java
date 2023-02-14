@@ -4,6 +4,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class SimpleEchoServer {
     public static void main(String[] args) {
@@ -13,21 +15,27 @@ public class SimpleEchoServer {
             Socket clientSocket = serverSocket.accept();  // 접속 대기
             System.out.println("클라이언트 접속됨.");
 
-            BufferedReader br = null;
-            PrintWriter pw = null;
-            try {
-                br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                pw = new PrintWriter(clientSocket.getOutputStream(), true);
-                String line;
-                while ((line = br.readLine()) != null) {
-                    System.out.println("클라이언트로 부터 받은 메세지 : " + line);
-                    pw.println(line);  // 클라이언트로 송신
-                }
+            try (
+                    BufferedReader br = new BufferedReader(
+                            new InputStreamReader(clientSocket.getInputStream()));
+                    PrintWriter pw =
+                            new PrintWriter(clientSocket.getOutputStream(), true))
+            {
+                Supplier<String> socketIn = () -> {
+                    try {
+                        return br.readLine();
+                    } catch (IOException ex) {
+                        return null;
+                    }
+                };
+                Stream s = Stream.generate(socketIn);
+                s.map(text -> {
+                    System.out.println("클라이언트로 부터 받은 메세지 : " + text);
+                    pw.println(text);
+                    return text;
+                }).allMatch(t -> t != null);
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
-                if(br != null) br.close();
-                if(pw != null) pw.close();
             }
         }
         catch (IOException ex) {
