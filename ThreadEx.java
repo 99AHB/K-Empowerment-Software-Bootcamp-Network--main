@@ -14,6 +14,8 @@ public class ThreadEx {
     public static void main(String[] args) {
         int alphabet = 'a';
         Worker worker = new Worker();
+        worker.start();
+
         for(int i = 0; i<26; i++){
             System.out.println("메인 스레드 : " +(char)alphabet++);
             try{
