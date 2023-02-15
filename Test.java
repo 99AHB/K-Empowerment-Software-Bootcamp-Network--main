@@ -1,20 +1,14 @@
-// StringBuilder vs String
-// string append
+class One{
+    private One() {
+    }
+    public static One produceOneInstance(){
+        return new One();
+    }
+}
 public class Test {
     public static void main(String[] args) {
-        String s = new String("hello");
-        long start = System.nanoTime();
-        for(int i = 1; i<100000; i++)
-            s = s + "~~";
-        long end = System.nanoTime();
-        System.out.println(end - start);
-
-
-        StringBuilder sb = new StringBuilder("hello");
-        start = System.nanoTime();
-        for(int i = 1; i<100000; i++)
-            sb = sb.append("~~");
-        end = System.nanoTime();
-        System.out.println(end - start);
+        //One o = new One();
+        One o1 = One.produceOneInstance();
+        One o2 = One.produceOneInstance();
     }
 }
