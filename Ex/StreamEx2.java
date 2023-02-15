@@ -9,7 +9,7 @@ public class StreamEx2 {
         Stream<String> ss;
         List<String> names = List.of("홍길동", "배장화", "임꺽정", "연흥부", "김선달", "황진이");
         List<Integer> ages = List.of(25, 20, 29, 28, 32, 18);
-        List<Gender> genders = List.of(Gender.남, Gender.여, Gender.남, Gender.남, Gender.남, Gender.여);
+        List<member> genders = List.of(member.남, member.여, member.남, member.남, member.남, member.여);
 
         Stream<Integer> si = ages.stream();
         System.out.println(si.reduce(0, (a, b) -> a + b));
@@ -20,7 +20,7 @@ public class StreamEx2 {
     }
 }
 
-enum Gender {
+enum member {
     남, 여
 }
 
