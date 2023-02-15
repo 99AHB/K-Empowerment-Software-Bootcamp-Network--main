@@ -1,3 +1,9 @@
+package Diablo;
+
+import Diablo.Axe;
+import Diablo.Barbarian;
+import Diablo.Bow;
+
 public class Day23 {
     public static void main(String[] args) {
         Barbarian b1 = new Barbarian();

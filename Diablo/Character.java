@@ -1,3 +1,5 @@
+package Diablo;
+
 public abstract class Character {
     protected int hp;
     protected int mp;
