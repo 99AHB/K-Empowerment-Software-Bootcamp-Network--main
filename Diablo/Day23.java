@@ -17,5 +17,7 @@ public class Day23 {
         s1.setWeapon(new Axe());
         s1.performWeapon();
         s1.info();
+        b1.setWeapon(()-> System.out.println("신오브로 아이스볼을 발사"));
+        b1.performWeapon();
     }
 }
