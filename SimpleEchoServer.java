@@ -43,7 +43,7 @@ public class SimpleEchoServer implements Runnable {
         ) {
             String inputLine;
             while ((inputLine = br.readLine()) != null) {
-                System.out.println(Thread.currentThread() +" 클라이언트가 보낸 메세지 : " + inputLine);
+                System.out.println(clientSocket.getRemoteSocketAddress().toString() + " " + Thread.currentThread() +" 클라이언트가 보낸 메세지 : " + inputLine);
                 out.println(inputLine);
             }
             System.out.println(Thread.currentThread() +" 클라이언트가 종료됨"); }
