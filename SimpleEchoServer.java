@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static sun.security.util.PolicyUtil.getInputStream;
 // IP 165.246.115.165 포트 20000
 
 public class SimpleEchoServer implements Runnable {
@@ -43,8 +45,14 @@ public class SimpleEchoServer implements Runnable {
         ) {
             String inputLine;
             while ((inputLine = br.readLine()) != null) {
-                System.out.println(clientSocket.getRemoteSocketAddress().toString() + " " + Thread.currentThread() +" 클라이언트가 보낸 메세지 : " + inputLine);
-                out.println(inputLine);
+                for (int x = clientSocket.getRemoteSocketAddress()
+                try {
+                    System.out.println(clientSocket.getRemoteSocketAddress().toString() + " " + Thread.currentThread() + " 클라이언트가 보낸 메세지 : " + inputLine);
+                    out.println(inputLine);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+
+                }
             }
             System.out.println(Thread.currentThread() +" 클라이언트가 종료됨"); }
         catch (IOException ex)
