@@ -1,3 +1,5 @@
+import org.json.simple.JSONObject;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -63,8 +65,8 @@ public class ProductServer {
                     while(true) {
                         String receiveJson = dis.readUTF();
 
-                        JSONObject request = new JSONObject(receiveJson);
-                        int menu = request.getInt("menu");
+                        JSONObject request = new JSONObject();
+                        int menu = request.get("menu");
 
                         switch(menu) {
                             case 0 -> list(request);
