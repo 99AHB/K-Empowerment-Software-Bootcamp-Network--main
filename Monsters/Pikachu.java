@@ -1,3 +1,5 @@
+package Monsters;
+
 public class Pikachu extends Pokemon {
     private String name = "피카츄";
     public Pikachu(String owner, String skills) {

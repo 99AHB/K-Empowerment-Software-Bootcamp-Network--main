@@ -1,3 +1,5 @@
+package Monsters;
+
 public class Pairi extends Pokemon {
     private String name = "파이리";
     public Pairi(String owner, String skills) {

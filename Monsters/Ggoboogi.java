@@ -1,4 +1,6 @@
-public class Ggoboogi extends Pokemon{
+package Monsters;
+
+public class Ggoboogi extends Pokemon {
     private String name = "꼬부기";
     public Ggoboogi(String owner, String skills) {
         super(owner, skills);
